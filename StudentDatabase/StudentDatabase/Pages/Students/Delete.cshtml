@@ -1,0 +1,27 @@
+﻿@page
+@using System.Data.SqlClient;
+@{
+    try
+    {
+        string regdNo = Request.Query["regdNo"];
+
+        string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Open();
+
+            string sql = "DELETE FROM Student WHERE RegdNo = @regdNo"; 
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+                command.Parameters.AddWithValue("@regdNo", regdNo);
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message.ToString());
+    }
+
+    Response.Redirect("/Students/Index"); 
+}
