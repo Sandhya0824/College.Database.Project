@@ -4,8 +4,10 @@
 }
 
 <br />
-<h1>List Of Students</h1>
-<a class="btn btn-primary btn-sm" href="/Students/Create">New Student</a>
+<h1>Student List</h1>
+<a class="btn btn-outline-primary btn-sm" href="/Students/Create">Add New Student</a>
+<br />
+<br />
 <table class="table">
 	<thead>
 		<tr>
@@ -29,8 +31,10 @@
 				<td>@item.Address</td>
 				<td>@item.CourseId</td>
 				<td>
-					<a class="btn btn-primary btn-sm" href="/Students/Edit?id=@item.RegdNo">Edit</a>
-					<a class="btn btn-danger btn-sm" href="/Students/Delete?id=@item.RegdNo">Delete</a>
+					<a asp-page="/Students/Edit" asp-route-regdNo="@item.RegdNo" class="btn btn-primary">Edit</a>
+
+					<a asp-page="/Students/Delete" asp-route-regdNo="@item.RegdNo" class="btn btn-danger btn-sm">Delete</a>
+
 				</td>
 			</tr>
 		}

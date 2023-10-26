@@ -48,25 +48,28 @@ namespace StudentDatabase.Pages.Students
 			}
 		}
 
-		public void OnPost()
+		public IActionResult OnPost()
 		{
-			studentInfo.RegdNo = Request.Form["regdNo"];
-			studentInfo.Name = Request.Form["name"];
-			studentInfo.DOB = Request.Form["dob"];
-			studentInfo.Gender = Request.Form["gender"];
-			studentInfo.Address = Request.Form["address"];
-			studentInfo.CourseId = Request.Form["courseId"];
-
-			if (string.IsNullOrEmpty(studentInfo.RegdNo) || string.IsNullOrEmpty(studentInfo.Name)
-				|| string.IsNullOrEmpty(studentInfo.DOB) || string.IsNullOrEmpty(studentInfo.Gender)
-				|| string.IsNullOrEmpty(studentInfo.Address) || string.IsNullOrEmpty(studentInfo.CourseId))
-			{
-				errorMessage = "All fields are required";
-				return;
-			}
-
 			try
 			{
+				// Retrieve the form data for updating the student details
+				string regdNo = Request.Form["regdNo"];
+				string name = Request.Form["name"];
+				string dob = Request.Form["dob"];
+				string gender = Request.Form["gender"];
+				string address = Request.Form["address"];
+				string courseId = Request.Form["courseId"];
+
+				// Validate the form data
+				if (string.IsNullOrEmpty(regdNo) || string.IsNullOrEmpty(name)
+					|| string.IsNullOrEmpty(dob) || string.IsNullOrEmpty(gender)
+					|| string.IsNullOrEmpty(address) || string.IsNullOrEmpty(courseId))
+				{
+					errorMessage = "All fields are required";
+					return Page();
+				}
+
+				// Update the student details in the database
 				string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;Connect Timeout=30;Encrypt=False";
 
 				using (SqlConnection connection = new SqlConnection(connectionString))
@@ -74,29 +77,32 @@ namespace StudentDatabase.Pages.Students
 					connection.Open();
 
 					string sql = "UPDATE Student " +
-								"SET name = @name, dob = @dob, gender = @gender, address = @address, courseId = @courseId " +
-								"WHERE regdNo = @regdNo";
+						"SET name = @name, dob = @dob, gender = @gender, address = @address, courseId = @courseId " +
+						"WHERE regdNo = @regdNo";
 
 					using (SqlCommand command = new SqlCommand(sql, connection))
 					{
-						command.Parameters.AddWithValue("@regdNo", studentInfo.RegdNo); // Add this line
-						command.Parameters.AddWithValue("@name", studentInfo.Name);
-						command.Parameters.AddWithValue("@dob", studentInfo.DOB);
-						command.Parameters.AddWithValue("@gender", studentInfo.Gender);
-						command.Parameters.AddWithValue("@address", studentInfo.Address);
-						command.Parameters.AddWithValue("@courseId", studentInfo.CourseId);
+						command.Parameters.AddWithValue("@regdNo", regdNo);
+						command.Parameters.AddWithValue("@name", name);
+						command.Parameters.AddWithValue("@dob", dob);
+						command.Parameters.AddWithValue("@gender", gender);
+						command.Parameters.AddWithValue("@address", address);
+						command.Parameters.AddWithValue("@courseId", courseId);
 
 						command.ExecuteNonQuery();
-						successMessage = "Student Updated Successfully";
 					}
 				}
+
+				// Redirect to the students index page after a successful update
+				return RedirectToPage("/Students/Index");
 			}
 			catch (Exception ex)
 			{
 				errorMessage = ex.Message;
+				return Page();
 			}
-			Response.Redirect("/Students/Index");
 		}
+
 
 	}
 

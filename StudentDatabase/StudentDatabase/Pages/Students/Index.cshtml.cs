@@ -10,6 +10,7 @@ namespace StudentDatabase.Pages.Students
 {
     public class IndexModel : PageModel
     {
+        public StudentInfo studentInfo1=new StudentInfo();
         public List<StudentInfo> studentList=new List<StudentInfo>();
         public IActionResult OnGet()
         {
