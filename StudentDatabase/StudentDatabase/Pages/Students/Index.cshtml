@@ -1,0 +1,44 @@
+﻿@page
+@model StudentDatabase.Pages.Students.IndexModel
+@{
+}
+
+<br />
+<h1>Student List</h1>
+<br />
+<br />
+<a class="btn btn-outline-primary btn-sm" href="/Students/Create">Add New Student</a>
+<br />
+<br />
+<table class="table">
+	<thead>
+		<tr>
+			<th>RegdNo</th>
+			<th>Name</th>
+			<th>DOB</th>
+			<th>Gender</th>
+			<th>Address</th>
+			<th>CourseId</th>
+			<th>Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var item in Model.studentList)
+		{
+			<tr>
+				<td>@item.RegdNo</td>
+				<td>@item.Name</td>
+				<td>@item.DOB</td>
+				<td>@item.Gender</td>
+				<td>@item.Address</td>
+				<td>@item.CourseId</td>
+				<td>
+					<a asp-page="/Students/Edit" asp-route-regdNo="@item.RegdNo" class="btn btn-primary">Edit</a>
+
+					<a asp-page="/Students/Delete" asp-route-regdNo="@item.RegdNo" class="btn btn-danger btn-sm">Delete</a>
+
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
