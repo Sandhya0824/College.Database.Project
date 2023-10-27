@@ -32,7 +32,6 @@ namespace FacultyDatabase.Pages.Faculty
                                 facultyInfo.Gender = reader.GetString(3);
                                 facultyInfo.Address = reader.GetString(4);
                                 facultyInfo.CourseId = "" + reader.GetInt32(5);
-                                facultyInfo.created_at = reader.GetDateTime(6).ToString();
 
                                 facultyList.Add(facultyInfo);
                             }
@@ -55,6 +54,5 @@ namespace FacultyDatabase.Pages.Faculty
         public String Gender;
         public String Address;
         public String CourseId;
-        public String created_at;
     }
 }
