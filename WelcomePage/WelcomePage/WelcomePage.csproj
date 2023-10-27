@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CourseDatabase\CourseDatabase\CourseDatabase.csproj" />
+    <ProjectReference Include="..\..\FacultyDetails\FacultyDetails\FacultyDatabase.csproj" />
+    <ProjectReference Include="..\..\StudentDatabase\StudentDatabase\StudentDatabase.csproj" />
+  </ItemGroup>
+
+</Project>
