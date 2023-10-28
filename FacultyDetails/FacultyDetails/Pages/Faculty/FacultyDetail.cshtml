@@ -2,6 +2,7 @@
 @model FacultyDatabase.Pages.Faculty.FacultyDetailModel
 @{
 }
+
 <br>
 <h2>List of Faculties</h2>
 <a class='btn btn-primary btn-sm' href='/Faculty/AddFaculty'>Add Faculty</a>
@@ -28,11 +29,13 @@
                <td>@item.Address</td>
                <td>@item.CourseId</td>
                <td>
-                   <a class="btn btn-primary" asp-page="/Faculty/Edit" asp-route-FacultyId="@item.FacultyId">Edit</a>
-                    <a class="btn btn-danger btn-sm" href="/Faculty/Delete" asp-route-FacultyId="@item.FacultyId">Delete</a>
+                   <a class="btn btn-primary btn-sm" href="/Faculty/Edit?FacultyId=@item.FacultyId">Edit</a>
+                    <a class="btn btn-danger btn-sm" href="/Faculty/Delete?FacultyId=@item.FacultyId">Delete</a>
 
                </td>
            </tr> 
         }
     </tbody>
 </table>
+
+

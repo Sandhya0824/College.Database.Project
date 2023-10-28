@@ -34,13 +34,13 @@ namespace FacultyDatabase.Pages.Faculty
 
             try
             {
-                string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;";
+                String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
                     if (IsValidCourseId(connection, facultyInfo.CourseId))
                     {
-                        string sql = "INSERT INTO Faculty (FacultyId, Name, DOB, Gender, Address, CourseId) VALUES (@FacultyId, @Name, @DOB, @Gender, @Address, @CourseId)";
+                        String sql = "INSERT INTO Faculty (FacultyId, Name, DOB, Gender, Address, CourseId) VALUES (@FacultyId, @Name, @DOB, @Gender, @Address, @CourseId)";
                         using (SqlCommand command = new SqlCommand(sql, connection))
                         {
                             command.Parameters.AddWithValue("@FacultyId", facultyInfo.FacultyId);
