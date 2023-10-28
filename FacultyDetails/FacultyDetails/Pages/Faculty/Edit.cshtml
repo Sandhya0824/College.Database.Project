@@ -14,7 +14,7 @@
 }
 
 <form method="POST">
-    <input type="hidden" name="FacultyId" value="@Model.facultyInfo.FacultyId" />
+    <input type="hidden" name="FacultyId" value="@Model.facultyInfo.FacultyId">
     <div class="row mb-3">
         <label class="col-sm-3 col-form-label">Name</label>
         <div class="col-sm-6">
@@ -63,7 +63,7 @@
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
         <div class="col-sm-3 d-grid">
-            <a class="btn btn-outline-primary" href="/" role="button">Cancle</a>
+            <a class="btn btn-outline-primary" href="/Faculty/FacultyDetail" role="button">Cancle</a>
         </div>
     </div>
 </form>

@@ -11,17 +11,17 @@ namespace FacultyDatabase.Pages.Faculty
         public String successMessage = "";
         public void OnGet()
         {
-            string FacultyId = Request.Query["FacultyId"];
+            String facultyId = Request.Query["FacultyId"];
             try
             {
-                String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;";
+                String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
                     String sql = "SELECT * FROM Faculty WHERE FacultyId = @FacultyId";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@FacultyId", FacultyId);
+                        command.Parameters.AddWithValue("@FacultyId", facultyId);
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
                             if (reader.Read())
@@ -61,15 +61,14 @@ namespace FacultyDatabase.Pages.Faculty
                 return;
             }
 
-            String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;";
-
             try
             {
+                String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
                     String sql = "Update Faculty" +
-                                 "set FacultyId=@FacultyId, Name=@Name, DOB=@DOB, Gender=@Gender, Address=@Address, CourseId=@CourseId " + 
+                                 " set Name=@Name, DOB=@DOB, Gender=@Gender, Address=@Address, CourseId=@CourseId " + 
                                  " WHERE FacultyId=@FacultyId";
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {

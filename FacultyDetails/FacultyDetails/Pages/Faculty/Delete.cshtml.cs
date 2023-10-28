@@ -10,21 +10,22 @@ namespace FacultyDatabase.Pages.Faculty
         public string errorMessage = "";
         public void OnGet()
         {
+            String facultyId = Request.Query["FacultyId"];
             try
             {
-                string FacultyId = Request.Form["FacultyId"];
+                
                 // Retrieve student information based on regdNo and populate studentInfo
                 // You can use similar code as your "Edit" page to fetch the student information.
-                string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;";
+                String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "SELECT * FROM Faculty WHERE FacultyId = @acultyId";
+                    String sql = "SELECT * FROM Faculty WHERE FacultyId = @FacultyId";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@FacultyId", FacultyId);
+                        command.Parameters.AddWithValue("@FacultyId", facultyId);
 
                         using (SqlDataReader reader = command.ExecuteReader())
                         {
@@ -50,19 +51,19 @@ namespace FacultyDatabase.Pages.Faculty
         {
             try
             {
-                string FacultyId = Request.Form["FacultyId"];
+                String facultyId = Request.Form["FacultyId"];
 
-                string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;";
+                String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
 
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    string sql = "DELETE FROM Faculty WHERE FacultyId = @FacultyId";
+                    String sql = "DELETE FROM Faculty WHERE FacultyId = @FacultyId";
 
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
-                        command.Parameters.AddWithValue("@FacultyId", FacultyId);
+                        command.Parameters.AddWithValue("@FacultyId", facultyId);
                         command.ExecuteNonQuery();
                     }
                 }
