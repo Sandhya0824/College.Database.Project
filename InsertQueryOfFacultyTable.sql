@@ -1,0 +1,23 @@
+Insert into Faculty
+Values
+(1001, 'Ravi Kumar'      , '15/03/1980', 'Male'   , 'Delhi, India'     ,101),
+(1002, 'Priya Sharma'    , '10/12/1985', 'Female' , 'Mumbai, India'    ,102),
+(1003, 'Suresh Patel'    , '22/08/1978', 'Male'   , 'Ahmedabad, India' ,103),
+(1004, 'Kavita Reddy'    , '28/03/1990', 'Female' , 'Bangalore, India' ,104),
+(1005, 'Deepika Verma'   , '25/12/1980', 'Female' , 'Mumbai, India'    ,105),
+(1006, 'Meera Gupta'     , '20/09/1983', 'Female' , 'Raipur, India'    ,106),
+(1007, 'Arjun Singh'     , '12/07/1978', 'Male'   , 'Ahmedabad, India' ,107),
+(1008, 'Aishwarya Desai' , '05/11/1988', 'Female' , 'Goa, India'       ,108),
+(1009, 'Karthik Iyer'    , '08/08/1980', 'Male'   , 'Bangalore, India' ,109),
+(1010, 'Neha Kapoor'     , '19/02/1982', 'Female' , 'Patna, India'     ,110),
+(1011, 'Vivek Sharma'    , '30/06/1974', 'Male'   , 'Udaipur, India'   ,111),
+(1012, 'Nisha Singh'     , '28/05/1984', 'Female' , 'Ranchi, India'    ,112),
+(1013, 'Prakash Patel'   , '10/03/1976', 'Male'   , 'Lucknow, India'   ,113),
+(1014, 'Tanvi Choudhary' , '29/07/1992', 'Female' , 'Surat, India'     ,114),
+(1015, 'Arvind Verma'    , '03/10/1981', 'Male'   , 'Nagpur, India'    ,115),
+(1016, 'Kavita Sharma'   , '16/01/1973', 'Female' , 'Chennai, India'   ,116),
+(1017, 'Priya Patel'     , '18/06/1979', 'Female' , 'Pune, India'      ,117),
+(1018, 'Advika Singh'    , '14/04/1976', 'Female' , 'Jaipur, India'    ,118),
+(1019, 'Ajay Kapoor'     , '05/04/1987', 'Male'   , 'Gurgaon, India'   ,119),
+(1020, 'Sanjana Mehta'   , '17/07/1981', 'Female' , 'Mussoorie, India' ,120),
+(1021, 'Rajan Joshi'     , '28/11/1975', 'Male'   , 'Dehradun, India'  ,121);
