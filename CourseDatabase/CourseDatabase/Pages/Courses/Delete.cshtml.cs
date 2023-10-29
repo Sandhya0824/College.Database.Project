@@ -45,18 +45,26 @@ namespace CourseDatabase.Pages.Courses
 
         public void OnPost()
         {
-            string courseId = Request.Query["id"];
-            string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-                string sql = "DELETE FROM Course WHERE CourseId = @id";
-                using (SqlCommand command = new SqlCommand(sql, connection))
+                string courseId = Request.Query["id"];
+                string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
+                using (SqlConnection connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@id", courseId);
-                    command.ExecuteNonQuery();
+                    connection.Open();
+                    string sql = "DELETE FROM Course WHERE CourseId = @id";
+                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    {
+                        command.Parameters.AddWithValue("@id", courseId);
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.ToString());
+            }
+            
 
          Response.Redirect("/Courses/Index");
         }
