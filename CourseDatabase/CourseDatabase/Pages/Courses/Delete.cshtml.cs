@@ -45,33 +45,49 @@ namespace CourseDatabase.Pages.Courses
 
         public void OnPost()
         {
-                string courseId = Request.Query["id"];
+            string courseId = Request.Query["id"];
+            try
+            {
                 string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
                 {
                     connection.Open();
-                    string sql = "DELETE FROM Course WHERE CourseId = @id";
-                    using (SqlCommand command = new SqlCommand(sql, connection))
+                    if (!IsReferencingAnotherTable(connection, courseInfo.CourseId))
                     {
-                        command.Parameters.AddWithValue("@id", courseId);
-                           try
-                            {
-                                int rowsAffected = command.ExecuteNonQuery();
-                                if (rowsAffected == 0)
-                                {
-                                    errorMessage = "Could not delete the Course as it has a reference to other tables. In order to delete the course, please delete it from the other table it references to.";
-                                    return;
-                                }
-                            }
-                            catch (Exception ex)
-                            {
-                                errorMessage = "An error occurred while deleting the course.";
-                            }
+                        string sql = "DELETE FROM Course WHERE CourseId = @id";
+                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        {
+                            command.Parameters.AddWithValue("@id", courseId);
+                            command.ExecuteNonQuery();
+                        }
                     }
+                    else
+                    {
+                        errorMessage = "Could not delete the Course as it has a reference to other tables. In order to delete the course, please delete it from the other table it references to.";
+                    }
+
                 }
+            }
+            catch (Exception e)
+            {
+                errorMessage = e.Message;
+            }
+                
             
            
          Response.Redirect("/Courses/Index");
+        }
+
+        private bool IsReferencingAnotherTable(SqlConnection connection, string courseId)
+        {
+            string sql1 = "SELECT COUNT(*) AS StudentCount FROM Student s JOIN Course c ON s.CourseId = c.CourseId WHERE c.CourseId = @id;";
+            string sql2 = "SELECT COUNT(*) AS FacultyCount FROM Faculty f JOIN Course c ON f.CourseId = c.CourseId WHERE c.CourseId = @id;";
+            using (SqlCommand command = new SqlCommand(sql1 + sql2, connection))
+            {
+                command.Parameters.AddWithValue("@id", courseId);
+                int count = (int)command.ExecuteScalar();
+                return count > 0;
+            }
         }
     }
 }
