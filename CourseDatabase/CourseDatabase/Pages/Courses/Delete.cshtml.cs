@@ -45,8 +45,6 @@ namespace CourseDatabase.Pages.Courses
 
         public void OnPost()
         {
-            try
-            {
                 string courseId = Request.Query["id"];
                 string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
                 using (SqlConnection connection = new SqlConnection(connectionString))
@@ -56,16 +54,23 @@ namespace CourseDatabase.Pages.Courses
                     using (SqlCommand command = new SqlCommand(sql, connection))
                     {
                         command.Parameters.AddWithValue("@id", courseId);
-                        command.ExecuteNonQuery();
+                           try
+                            {
+                                int rowsAffected = command.ExecuteNonQuery();
+                                if (rowsAffected == 0)
+                                {
+                                    errorMessage = "Could not delete the Course as it has a reference to other tables. In order to delete the course, please delete it from the other table it references to.";
+                                    return;
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                errorMessage = "An error occurred while deleting the course.";
+                            }
                     }
                 }
-            }
-            catch (Exception e)
-            {
-                errorMessage = "Could not delete the Course as it has a reference to other tables. In order to delete the course please delete it from the other table it references to.";
-            }
             
-
+           
          Response.Redirect("/Courses/Index");
         }
     }
