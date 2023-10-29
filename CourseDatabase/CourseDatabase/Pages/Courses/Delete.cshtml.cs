@@ -82,12 +82,19 @@ namespace CourseDatabase.Pages.Courses
         {
             string sql1 = "SELECT COUNT(*) AS StudentCount FROM Student s JOIN Course c ON s.CourseId = c.CourseId WHERE c.CourseId = @id;";
             string sql2 = "SELECT COUNT(*) AS FacultyCount FROM Faculty f JOIN Course c ON f.CourseId = c.CourseId WHERE c.CourseId = @id;";
-            using (SqlCommand command = new SqlCommand(sql1 + sql2, connection))
+            int count1, count2, totalCount;
+            using (SqlCommand command = new SqlCommand(sql1, connection))
             {
                 command.Parameters.AddWithValue("@id", courseId);
-                int count = (int)command.ExecuteScalar();
-                return count > 0;
+                count1 = (int)command.ExecuteScalar();
             }
+            using (SqlCommand command2 = new SqlCommand(sql2, connection))
+            {
+                command2.Parameters.AddWithValue("@id", courseId);
+                count2 = (int)command2.ExecuteScalar();
+            }
+            totalCount = count1 + count2;
+            return totalCount > 0;
         }
     }
 }
