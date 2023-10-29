@@ -6,9 +6,8 @@ namespace CourseDatabase.Pages.Courses
 {
     public class DeleteModel : PageModel
     {
-        public CourseInfo courseInfo = new CourseInfo();
-        public string errorMessage = "";
-        public int count1, count2;
+        public CourseInfo courseInfo { get; set; } = new CourseInfo();
+        public string errorMessage { get; set; }
         public void OnGet()
         {
             string courseId = Request.Query["id"];
@@ -57,14 +56,14 @@ namespace CourseDatabase.Pages.Courses
                     using (SqlCommand command = new SqlCommand(sql1, connection))
                     {
                         command.Parameters.AddWithValue("@id", courseId);
-                        count1 = (int)command.ExecuteScalar();
+                        int count1 = (int)command.ExecuteScalar();
 
 
                         string sql2 = "SELECT COUNT(*) AS FacultyCount FROM Faculty f JOIN Course c ON f.CourseId = c.CourseId WHERE c.CourseId = @id;";
                         using (SqlCommand command2 = new SqlCommand(sql2, connection))
                         {
                             command2.Parameters.AddWithValue("@id", courseId);
-                            count2 = (int)command2.ExecuteScalar();
+                            int count2 = (int)command2.ExecuteScalar();
 
 
                             if (count1 > 0 || count2 > 0)

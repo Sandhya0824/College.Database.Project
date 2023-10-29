@@ -47,6 +47,7 @@ namespace CourseDatabase.Pages.Courses
                         command.Parameters.AddWithValue("@domain", courseInfo.Domain);
 
                         command.ExecuteNonQuery();
+                        successMessage = "New Course Added Correctly";
                     }
                 }
             }
@@ -61,7 +62,7 @@ namespace CourseDatabase.Pages.Courses
             courseInfo.CourseName = "";
             courseInfo.Duration = "";
             courseInfo.Domain = "";
-            successMessage = "New Client Added Correctly";
+            
 
             Response.Redirect("/Courses/Index");
         }
