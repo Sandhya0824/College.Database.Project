@@ -7,7 +7,7 @@ namespace CourseDatabase.Pages.Courses
     public class DeleteModel : PageModel
     {
         public CourseInfo courseInfo = new CourseInfo();
-        
+        public string errorMessage = "";
 
         public void OnGet()
         {
@@ -62,7 +62,7 @@ namespace CourseDatabase.Pages.Courses
             }
             catch (Exception e)
             {
-                Console.WriteLine("Could not delete the Course as it has a reference to other tables. In order to delete the course please delete it from the other table it references to.");
+                errorMessage = "Could not delete the Course as it has a reference to other tables. In order to delete the course please delete it from the other table it references to.";
             }
             
 
