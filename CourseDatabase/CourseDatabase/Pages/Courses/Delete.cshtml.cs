@@ -58,27 +58,29 @@ namespace CourseDatabase.Pages.Courses
                     {
                         command.Parameters.AddWithValue("@id", courseId);
                         count1 = (int)command.ExecuteScalar();
-                    }
 
-                    string sql2 = "SELECT COUNT(*) AS FacultyCount FROM Faculty f JOIN Course c ON f.CourseId = c.CourseId WHERE c.CourseId = @id;";
-                    using (SqlCommand command2 = new SqlCommand(sql2, connection))
-                    {
-                        command2.Parameters.AddWithValue("@id", courseId);
-                        count2 = (int)command2.ExecuteScalar();
-                    }
 
-                    if (count1 > 0 || count2 > 0) 
-                    {
-                        errorMessage= "Could not delete the Course as it has a reference to other tables. In order to delete the course, please delete it from the other table it references to.";
-                    }
-
-                    else
-                    {
-                        string sql = "DELETE FROM Course WHERE CourseId = @id";
-                        using (SqlCommand command = new SqlCommand(sql, connection))
+                        string sql2 = "SELECT COUNT(*) AS FacultyCount FROM Faculty f JOIN Course c ON f.CourseId = c.CourseId WHERE c.CourseId = @id;";
+                        using (SqlCommand command2 = new SqlCommand(sql2, connection))
                         {
-                            command.Parameters.AddWithValue("@id", courseId);
-                            command.ExecuteNonQuery();
+                            command2.Parameters.AddWithValue("@id", courseId);
+                            count2 = (int)command2.ExecuteScalar();
+
+
+                            if (count1 > 0 || count2 > 0)
+                            {
+                                errorMessage = "Could not delete the Course as it has a reference to other tables. In order to delete the course, please delete it from the other table it references to.";
+                            }
+
+                            else
+                            {
+                                string sql = "DELETE FROM Course WHERE CourseId = @id";
+                                using (SqlCommand command3 = new SqlCommand(sql, connection))
+                                {
+                                    command3.Parameters.AddWithValue("@id", courseId);
+                                    command3.ExecuteNonQuery();
+                                }
+                            }
                         }
                     }
                 }
