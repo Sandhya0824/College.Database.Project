@@ -44,9 +44,9 @@ namespace CourseDatabase.Pages.Courses
 
     public class CourseInfo
     {
-        public string CourseName;
-        public string CourseId;
-        public string Duration;
-        public string Domain;
+        public string CourseName { get; set; }
+        public string CourseId { get; set; }
+        public string Duration { get; set; }
+        public string Domain { get; set; }
     }
 }
