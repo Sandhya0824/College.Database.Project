@@ -46,6 +46,13 @@
 			<input type="text" class="form-control" name="courseId" value="@Model.studentInfo.CourseId">
 		</div>
 	</div>
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label">Profile Photo</label>
+		<div class="col-sm-6">
+			<input type="file" class="form-control" name="profilePhoto" accept="image/*">
+		</div>
+	</div>
+
 
 	@if (Model.successMessage.Length > 0)
 	{

@@ -42,6 +42,12 @@
 	</div>
 </div>
 <div class="row mb-3">
+	<label class="col-sm-3 col-form-label">ProfilePhoto</label>
+	<div class="col-sm-6">
+		<img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.studentInfo.ProfilePhoto)" />
+	</div>
+</div>
+<div class="row mb-3">
 	<div class="col-sm-6">
 		<a asp-page="/Students/Index" class="btn btn-primary">Back to Student List</a>
 	</div>
