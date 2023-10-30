@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\FacultyDatabase\FacultyDatabase\FacultyDatabase.csproj" />
+    <ProjectReference Include="..\..\FacultyDatabase\FacultyDetails\FacultyDatabase.csproj" />
     <ProjectReference Include="..\..\StudentDatabase\StudentDatabase\StudentDatabase.csproj" />
   </ItemGroup>
 
