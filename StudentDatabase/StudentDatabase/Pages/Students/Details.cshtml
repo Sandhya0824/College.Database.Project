@@ -38,7 +38,9 @@
 <div class="row mb-3">
 	<label class="col-sm-3 col-form-label">CourseId</label>
 	<div class="col-sm-6">
-		<span>@Model.studentInfo.CourseId</span>
+		<a asp-area="Coursedatabase" asp-page="/Courses/Index" class="text-primary">
+			@Model.studentInfo.CourseId
+		</a>
 	</div>
 </div>
 <div class="row mb-3">
