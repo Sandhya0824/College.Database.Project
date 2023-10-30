@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentDatabase", "..\Stude
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CourseDatabase", "..\CourseDatabase\CourseDatabase\CourseDatabase.csproj", "{ED4EA8C0-D78F-4E5E-8228-EEA73FD14DA8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacultyDatabase", "..\FacultyDatabase\FacultyDatabase\FacultyDatabase.csproj", "{76756B1C-9A1C-4806-BF92-2648D913F823}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacultyDatabase", "..\FacultyDatabase\FacultyDetails\FacultyDatabase.csproj", "{7CB466D3-4405-4714-9895-0918D8EC7871}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{ED4EA8C0-D78F-4E5E-8228-EEA73FD14DA8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED4EA8C0-D78F-4E5E-8228-EEA73FD14DA8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED4EA8C0-D78F-4E5E-8228-EEA73FD14DA8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{76756B1C-9A1C-4806-BF92-2648D913F823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{76756B1C-9A1C-4806-BF92-2648D913F823}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{76756B1C-9A1C-4806-BF92-2648D913F823}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{76756B1C-9A1C-4806-BF92-2648D913F823}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7CB466D3-4405-4714-9895-0918D8EC7871}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CB466D3-4405-4714-9895-0918D8EC7871}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CB466D3-4405-4714-9895-0918D8EC7871}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CB466D3-4405-4714-9895-0918D8EC7871}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
