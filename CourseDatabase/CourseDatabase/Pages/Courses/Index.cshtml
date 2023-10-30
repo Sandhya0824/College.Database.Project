@@ -13,18 +13,17 @@
         <tr>
             <th>Course ID</th>
             <th>Course Name</th>
-            <th>Duration</th>
-            <th>Domain</th>
+            <!--<th>Duration</th>
+            <th>Domain</th>-->
         </tr>
     </thead>
         <tbody>
             @foreach (var item in Model.courseList)
             {
                 <tr>
-                    <td>@item.CourseId</td>
+                    <td><a asp-page="/Courses/Details" asp-route-id="@item.CourseId">@item.CourseId</a></td>
                     <td>@item.CourseName</td>
-                    <td>@item.Duration</td>
-                    <td>@item.Domain</td>
+               
                     <td>
                         <a class="btn btn-primary btn-sm" href="/Courses/Edit?id=@item.CourseId">Edit</a>
                         <a class="btn btn-danger btn-sm" href="/Courses/Delete?id=@item.CourseId">Delete</a>
