@@ -48,7 +48,7 @@ namespace CourseDatabase.Pages.Courses
                         {
                             while (studentReader.Read())
                             {
-                                Students.Add(studentReader["StudentName"].ToString());
+                                Students.Add(studentReader["Name"].ToString());
                             }
                         }
                     }
@@ -62,7 +62,7 @@ namespace CourseDatabase.Pages.Courses
                         {
                             while (facultyReader.Read())
                             {
-                                FacultyMembers.Add(facultyReader["FacultyName"].ToString());
+                                FacultyMembers.Add(facultyReader["Name"].ToString());
                             }
                         }
                     }
