@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace StudentDatabase.Pages.Students
@@ -11,23 +12,22 @@ namespace StudentDatabase.Pages.Students
         public string successMessage = "";
 
 
-		public void OnGet()
+		public void OnGet(string regdNo)
 		{
-			String regdNo = Request.Query["regdNo"];
-
 			try
 			{
-				String connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+				string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
 
-				using (SqlConnection connection = new SqlConnection(connectionString))
+				using (SqlConnection sqlConnection = new SqlConnection(connectionString))
 				{
-					connection.Open();
-					String sql = "SELECT * FROM Student WHERE RegdNo = @regdNo";
+					sqlConnection.Open();
+					string sql = "SELECT RegdNo, Name, DOB, Gender, Address, CourseId, ProfilePhoto FROM STUDENT WHERE RegdNo=@RegdNo";
 
-					using (SqlCommand command = new SqlCommand(sql, connection))
+					using (SqlCommand sqlCommand = new SqlCommand(sql, sqlConnection))
 					{
-						command.Parameters.AddWithValue("@regdNo", regdNo);
-						using (SqlDataReader reader = command.ExecuteReader())
+						sqlCommand.Parameters.AddWithValue("@RegdNo", regdNo);
+
+						using (SqlDataReader reader = sqlCommand.ExecuteReader())
 						{
 							if (reader.Read())
 							{
@@ -37,6 +37,16 @@ namespace StudentDatabase.Pages.Students
 								studentInfo.Gender = reader.GetString(3);
 								studentInfo.Address = reader.GetString(4);
 								studentInfo.CourseId = "" + reader.GetInt32(5);
+
+								if (!reader.IsDBNull(6))
+								{
+									studentInfo.ProfilePhoto = (byte[])reader.GetValue(6);
+								}
+								else
+								{
+									// Handle the case where ProfilePhoto is null (e.g., assign a default photo or set it to an empty byte[])
+									studentInfo.ProfilePhoto = new byte[0]; // You can choose how to handle this case.
+								}
 							}
 						}
 					}
@@ -44,7 +54,7 @@ namespace StudentDatabase.Pages.Students
 			}
 			catch (Exception ex)
 			{
-				errorMessage = ex.Message;
+				Console.WriteLine("Error: " + ex.ToString());
 			}
 		}
 
@@ -52,13 +62,26 @@ namespace StudentDatabase.Pages.Students
 		{
 			try
 			{
-				// Retrieve the form data for updating the student details
+				// Retrieve the form data for updating the student details, including the profile photo
 				string regdNo = Request.Form["regdNo"];
 				string name = Request.Form["name"];
 				string dob = Request.Form["dob"];
 				string gender = Request.Form["gender"];
 				string address = Request.Form["address"];
 				string courseId = Request.Form["courseId"];
+
+				// Get the profile photo from the form
+				var profilePhoto = Request.Form.Files["profilePhoto"];
+				byte[] profilePhotoBytes = null;
+
+				if (profilePhoto != null && profilePhoto.Length > 0)
+				{
+					using (MemoryStream ms = new MemoryStream())
+					{
+						profilePhoto.CopyTo(ms);
+						profilePhotoBytes = ms.ToArray();
+					}
+				}
 
 				// Validate the form data
 				if (string.IsNullOrEmpty(regdNo) || string.IsNullOrEmpty(name)
@@ -69,16 +92,19 @@ namespace StudentDatabase.Pages.Students
 					return Page();
 				}
 
-				// Update the student details in the database
-				string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True;Connect Timeout=30;Encrypt=False";
+				// Update the student details and profile photo in the database
+				string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
 
 				using (SqlConnection connection = new SqlConnection(connectionString))
 				{
 					connection.Open();
 
+					// Define your SQL UPDATE statement to include the profile photo
 					string sql = "UPDATE Student " +
-						"SET name = @name, dob = @dob, gender = @gender, address = @address, courseId = @courseId " +
-						"WHERE regdNo = @regdNo";
+			 "SET Name = @name, DOB = @dob, Gender = @gender, Address = @address, CourseId = @courseId, " +
+			 "ProfilePhoto = CONVERT(varbinary(max), @profilePhoto) " +
+			 "WHERE RegdNo = @regdNo";
+
 
 					using (SqlCommand command = new SqlCommand(sql, connection))
 					{
@@ -88,6 +114,21 @@ namespace StudentDatabase.Pages.Students
 						command.Parameters.AddWithValue("@gender", gender);
 						command.Parameters.AddWithValue("@address", address);
 						command.Parameters.AddWithValue("@courseId", courseId);
+
+						if (profilePhotoBytes != null)
+						{
+							// Only add the profilePhoto parameter if a photo was uploaded
+							command.Parameters.Add(new SqlParameter("@profilePhoto", SqlDbType.VarBinary, -1)
+							{
+								Value = profilePhotoBytes,
+								Size = -1
+							});
+						}
+						else
+						{
+							// Handle the case where no photo was uploaded
+							command.Parameters.Add(new SqlParameter("@profilePhoto", DBNull.Value));
+						}
 
 						command.ExecuteNonQuery();
 					}
@@ -102,7 +143,6 @@ namespace StudentDatabase.Pages.Students
 				return Page();
 			}
 		}
-
 
 	}
 

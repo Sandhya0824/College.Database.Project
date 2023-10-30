@@ -62,5 +62,6 @@ namespace StudentDatabase.Pages.Students
         public String Gender;
         public String Address;
         public String CourseId;
+        public byte[] ProfilePhoto;
     }
 }

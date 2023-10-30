@@ -1,0 +1,54 @@
+﻿@page
+@model StudentDatabase.Pages.Students.DetailsModel
+@{
+}
+
+<h1>Student Bio-Data</h1>
+
+<div class="row mb-3">
+	<label class="col-sm-3 col-form-label">RegdNo</label>
+	<div class="col-sm-6">
+		<span>@Model.studentInfo.RegdNo</span>
+	</div>
+</div>
+<div class="row mb-3">
+	<label class="col-sm-3 col-form-label">Name</label>
+	<div class="col-sm-6">
+		<span>@Model.studentInfo.Name</span>
+	</div>
+</div>
+<div class="row mb-3">
+	<label class="col-sm-3 col-form-label">DOB</label>
+	<div class="col-sm-6">
+		<span>@Model.studentInfo.DOB</span>
+	</div>
+</div>
+<div class="row mb-3">
+	<label class="col-sm-3 col-form-label">Gender</label>
+	<div class="col-sm-6">
+		<span>@Model.studentInfo.Gender</span>
+	</div>
+</div>
+<div class="row mb-3">
+	<label class="col-sm-3 col-form-label">Address</label>
+	<div class="col-sm-6">
+		<span>@Model.studentInfo.Address</span>
+	</div>
+</div>
+<div class="row mb-3">
+	<label class="col-sm-3 col-form-label">CourseId</label>
+	<div class="col-sm-6">
+		<span>@Model.studentInfo.CourseId</span>
+	</div>
+</div>
+<div class="row mb-3">
+	<label class="col-sm-3 col-form-label">ProfilePhoto</label>
+	<div class="col-sm-6">
+		<img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.studentInfo.ProfilePhoto)" />
+	</div>
+</div>
+<div class="row mb-3">
+	<div class="col-sm-6">
+		<a asp-page="/Students/Index" class="btn btn-primary">Back to Student List</a>
+	</div>
+</div>

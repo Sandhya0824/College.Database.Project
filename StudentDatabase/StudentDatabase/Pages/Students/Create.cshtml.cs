@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System;
 using System.Data.SqlClient;
+using System.IO;
 
 namespace StudentDatabase.Pages.Students
 {
@@ -22,7 +24,19 @@ namespace StudentDatabase.Pages.Students
 			studentInfo.DOB = Request.Form["dob"];
 			studentInfo.Gender = Request.Form["gender"];
 			studentInfo.Address = Request.Form["address"];
-			studentInfo.CourseId = Request.Form["courseId"]; // Convert to int
+			studentInfo.CourseId = Request.Form["courseId"];
+
+			IFormFile profilePhoto = Request.Form.Files["profilePhoto"];
+			byte[] profilePhotoBytes = null;
+
+			if (profilePhoto != null && profilePhoto.Length > 0)
+			{
+				using (var memoryStream = new MemoryStream())
+				{
+					profilePhoto.CopyTo(memoryStream);
+					profilePhotoBytes = memoryStream.ToArray();
+				}
+			}
 
 			if (string.IsNullOrEmpty(studentInfo.RegdNo) || string.IsNullOrEmpty(studentInfo.Name))
 			{
@@ -40,8 +54,8 @@ namespace StudentDatabase.Pages.Students
 
 					if (IsValidCourseId(connection, studentInfo.CourseId))
 					{
-						string sql = "INSERT INTO Student (regdNo, name, dob, gender, address, courseId) " +
-									 "VALUES (@regdNo, @name, @dob, @gender, @address, @courseId);";
+						string sql = "INSERT INTO Student (regdNo, name, dob, gender, address, courseId, profilePhoto) " +
+									 "VALUES (@regdNo, @name, @dob, @gender, @address, @courseId, @profilePhoto);";
 
 						using (SqlCommand command = new SqlCommand(sql, connection))
 						{
@@ -51,6 +65,16 @@ namespace StudentDatabase.Pages.Students
 							command.Parameters.AddWithValue("@gender", studentInfo.Gender);
 							command.Parameters.AddWithValue("@address", studentInfo.Address);
 							command.Parameters.AddWithValue("@courseId", studentInfo.CourseId);
+
+							if (profilePhotoBytes != null)
+							{
+								command.Parameters.AddWithValue("@profilePhoto", profilePhotoBytes);
+							}
+							else
+							{
+								// Handle the case where no photo was uploaded
+								command.Parameters.Add(new SqlParameter("@profilePhoto", DBNull.Value));
+							}
 
 							command.ExecuteNonQuery();
 							successMessage = "New Student Added Successfully";
@@ -72,7 +96,6 @@ namespace StudentDatabase.Pages.Students
 
 		private bool IsValidCourseId(SqlConnection connection, string courseId)
 		{
-			// Check if the CourseId exists in the Course table
 			string sql = "SELECT COUNT(*) FROM Course WHERE CourseId = @courseId";
 			using (SqlCommand command = new SqlCommand(sql, connection))
 			{
