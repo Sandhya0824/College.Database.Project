@@ -1,0 +1,67 @@
+﻿@page
+@model CourseDatabase.Pages.Courses.DetailsModel
+@{
+}
+
+<br />
+<h2>Course Details</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Course ID</th>
+            <th>Course Name</th>
+            <th>Duration</th>
+            <th>Domain</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.courseInfo.CourseId</td>
+            <td>@Model.courseInfo.CourseName</td>
+            <td>@Model.courseInfo.Duration</td>
+            <td>@Model.courseInfo.Domain</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Students Enrolled</h3>
+@if (Model.Students.Count > 0)
+{
+    <ul>
+        @foreach (var student in Model.Students)
+        {
+            <li>@student</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No students enrolled in this course.</p>
+}
+
+<h3>Faculty Members</h3>
+@if (Model.FacultyMembers.Count > 0)
+{
+    <ul>
+        @foreach (var faculty in Model.FacultyMembers)
+        {
+            <li>@faculty</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No faculty members teaching this course.</p>
+}
+
+<div class="mt-3">
+    <a asp-page="/Courses/Index" class="btn btn-primary">Back to Courses</a>
+</div>
