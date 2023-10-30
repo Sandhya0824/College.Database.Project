@@ -15,23 +15,17 @@
 		<tr>
 			<th>RegdNo</th>
 			<th>Name</th>
-			<th>DOB</th>
-			<th>Gender</th>
-			<th>Address</th>
-			<th>CourseId</th>
-			<th>Actions</th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach(var item in Model.studentList)
+		@foreach (var item in Model.studentList)
 		{
 			<tr>
-				<td>@item.RegdNo</td>
+				<td>
+					<a asp-page="Details" asp-route-regdNo="@item.RegdNo">@item.RegdNo</a>
+				</td>
 				<td>@item.Name</td>
-				<td>@item.DOB</td>
-				<td>@item.Gender</td>
-				<td>@item.Address</td>
-				<td>@item.CourseId</td>
+
 				<td>
 					<a asp-page="/Students/Edit" asp-route-regdNo="@item.RegdNo" class="btn btn-primary">Edit</a>
 
