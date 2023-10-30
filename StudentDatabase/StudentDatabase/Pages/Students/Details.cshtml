@@ -49,11 +49,12 @@
 <div class="row mb-3">
 	<label class="col-sm-3 col-form-label">CourseId</label>
 	<div class="col-sm-6">
-		<a asp-area="Coursedatabase" asp-page="/Courses/Details" class="text-primary">
+		<a asp-area="Coursedatabase" asp-page="/Courses/Details" asp-route-id="@Model.studentInfo.CourseId" class="text-primary">
 			@Model.studentInfo.CourseId
 		</a>
 	</div>
 </div>
+
 	<h3>Faculty Members</h3>
 	@if (Model.FacultyMembers.Count > 0)
 	{
