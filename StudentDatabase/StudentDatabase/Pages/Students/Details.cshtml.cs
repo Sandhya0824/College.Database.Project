@@ -8,10 +8,12 @@ namespace StudentDatabase.Pages.Students
 	{
 		public StudentInfo studentInfo = new StudentInfo();
 		public string errorMessage = "";
+		public List<string> FacultyMembers { get; set; } = new List<string>();
 
 		public void OnGet()
 		{
 			String regdNo = Request.Query["regdNo"];
+			String courseId = Request.Query["courseId"];
 			try
 			{
 				string connectionString = "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=CollegeLoginPortal;Integrated Security=True";
@@ -44,6 +46,26 @@ namespace StudentDatabase.Pages.Students
 								{
 									// Handle the case where ProfilePhoto is null (e.g., assign a default photo or set it to an empty byte[])
 									studentInfo.ProfilePhoto = new byte[0]; // You can choose how to handle this case.
+								}
+							}
+						}
+
+						
+					}
+
+					// Get faculty members teaching the course
+					string facultySql = "SELECT f.Name FROM Faculty f JOIN Student s ON f.CourseId = s.CourseId WHERE s.CourseId = @courseid;";
+					using (SqlConnection connection = new SqlConnection(connectionString))
+					{
+						sqlConnection.Open();
+						using (SqlCommand facultyCommand = new SqlCommand(facultySql, connection))
+						{
+							facultyCommand.Parameters.AddWithValue("@courseId", courseId);
+							using (SqlDataReader facultyReader = facultyCommand.ExecuteReader())
+							{
+								while (facultyReader.Read())
+								{
+									FacultyMembers.Add(facultyReader["Name"].ToString());
 								}
 							}
 						}
