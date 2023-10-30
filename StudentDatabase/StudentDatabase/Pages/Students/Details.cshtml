@@ -54,7 +54,20 @@
 		</a>
 	</div>
 </div>
-
+	<h3>Faculty Members</h3>
+	@if (Model.FacultyMembers.Count > 0)
+	{
+		<ul>
+			@foreach (var faculty in Model.FacultyMembers)
+			{
+				<li>@faculty</li>
+			}
+		</ul>
+	}
+	else
+	{
+		<p>No faculty members associated with this student.</p>
+	}
 <div class="row mb-3">
 	<div class="col-sm-6">
 		<a asp-page="/Students/Index" class="btn btn-primary">Back to Student List</a>
