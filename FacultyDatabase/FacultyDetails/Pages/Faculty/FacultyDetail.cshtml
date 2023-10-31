@@ -11,10 +11,6 @@
         <tr>
             <th>Faculty Id</th>
             <th>Name</th>
-            <th>DOB</th>
-            <th>Gender</th>
-            <th>Address</th>
-            <th>Course Id</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -27,10 +23,6 @@
                     <a href="/Faculty/CompleteInfoOfFaculty?FacultyId=@item.FacultyId">@item.FacultyId</a>
                </td>
                <td>@item.Name</td>
-               <td>@item.DOB</td>
-               <td>@item.Gender</td>
-               <td>@item.Address</td>
-               <td>@item.CourseId</td>
                <td>
                    <a class="btn btn-primary btn-sm" href="/Faculty/Edit?FacultyId=@item.FacultyId">Edit</a>
                     <a class="btn btn-danger btn-sm" href="/Faculty/Delete?FacultyId=@item.FacultyId">Delete</a>
