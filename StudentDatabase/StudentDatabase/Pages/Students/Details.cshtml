@@ -2,75 +2,102 @@
 @model StudentDatabase.Pages.Students.DetailsModel
 @{
 }
-
-<h1>Student Bio-Data</h1>
-
-<div class="row mb-3">
-	<label class="col-sm-3 col-form-label">RegdNo</label>
-	<div class="col-sm-6">
-		<span>@Model.studentInfo.RegdNo</span>
-	</div>
-</div>
-<div class="col-3">
-	<div class="row mb-3">
-		<label class="col-sm-12 col-form-label">ProfilePhoto</label>
-	</div>
-	<div class="row">
-		<div class="col-sm-12">
-			<img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.studentInfo.ProfilePhoto)" class="img-fluid" alt="Profile Photo" style="max-width: 150px; max-height: 150px;">
-		</div>
-	</div>
-</div>
-<div class="col-9">
-<div class="row mb-3">
-	<label class="col-sm-3 col-form-label">Name</label>
-	<div class="col-sm-6">
-		<span>@Model.studentInfo.Name</span>
-	</div>
-</div>
-<div class="row mb-3">
-	<label class="col-sm-3 col-form-label">DOB</label>
-	<div class="col-sm-6">
-		<span>@Model.studentInfo.DOB</span>
-	</div>
-</div>
-<div class="row mb-3">
-	<label class="col-sm-3 col-form-label">Gender</label>
-	<div class="col-sm-6">
-		<span>@Model.studentInfo.Gender</span>
-	</div>
-</div>
-<div class="row mb-3">
-	<label class="col-sm-3 col-form-label">Address</label>
-	<div class="col-sm-6">
-		<span>@Model.studentInfo.Address</span>
-	</div>
-</div>
-<div class="row mb-3">
-	<label class="col-sm-3 col-form-label">CourseId</label>
-	<div class="col-sm-6">
-		<a asp-area="Coursedatabase" asp-page="/Courses/Details" asp-route-id="@Model.studentInfo.CourseId" class="text-primary">
-			@Model.studentInfo.CourseId
-		</a>
-	</div>
-</div>
-
-	<h3>Faculty Members</h3>
-	@if (Model.FacultyMembers.Count > 0)
-	{
-		<ul>
-			@foreach (var faculty in Model.FacultyMembers)
-			{
-				<li>@faculty</li>
-			}
-		</ul>
-	}
-	else
-	{
-		<p>No faculty members associated with this student.</p>
-	}
-<div class="row mb-3">
-	<div class="col-sm-6">
-		<a asp-page="/Students/Index" class="btn btn-primary">Back to Student List</a>
-	</div>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        h1 {
+            color: #007BFF; /* Customize the color as needed */
+            font-size: 2.5rem; /* Adjust the font size as needed */
+            text-align: center;
+            text-transform: uppercase; /* Uppercase the text */
+            margin-bottom: 30px; /* Add spacing below the heading */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Student Bio-Data</h1>
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Student Information</h5>
+                        <hr>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">RegdNo</label>
+                            <div class="col-sm-9">
+                                <span class="fw-bold">@Model.studentInfo.RegdNo</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">Name</label>
+                            <div class="col-sm-9">
+                                <span class="fw-bold">@Model.studentInfo.Name</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">DOB</label>
+                            <div class="col-sm-9">
+                                <span class="fw-bold">@Model.studentInfo.DOB</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">Gender</label>
+                            <div class="col-sm-9">
+                                <span class="fw-bold">@Model.studentInfo.Gender</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">Address</label>
+                            <div class="col-sm-9">
+                                <span class="fw-bold">@Model.studentInfo.Address</span>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label text-right">CourseId</label>
+                            <div class="col-sm-9">
+                                <a asp-area="Coursedatabase" asp-page="/Courses/Details" asp-route-id="@Model.studentInfo.CourseId" class="text-primary">
+                                    @Model.studentInfo.CourseId
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Profile Photo</h5>
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.studentInfo.ProfilePhoto)" class="img-fluid" alt="Profile Photo">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <h3 class="fw-bold">Faculty Members</h3>
+                @if (Model.FacultyMembers.Count > 0)
+                {
+                    <ul class="list-group">
+                        @foreach (var faculty in Model.FacultyMembers)
+                        {
+                            <li class="list-group-item">@faculty</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <p>No faculty members associated with this student.</p>
+                }
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <a asp-page="/Students/Index" class="btn btn-primary">Back to Student List</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+ 
