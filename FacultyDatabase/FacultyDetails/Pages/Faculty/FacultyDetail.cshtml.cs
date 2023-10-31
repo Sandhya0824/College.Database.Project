@@ -54,5 +54,6 @@ namespace FacultyDatabase.Pages.Faculty
         public String Gender;
         public String Address;
         public String CourseId;
+        public byte[] ProfilePhoto;
     }
 }
